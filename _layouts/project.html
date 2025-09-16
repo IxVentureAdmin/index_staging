@@ -2,28 +2,21 @@
 layout: default
 ---
 
-<article class="post">
-  <header class="post-header">
-    <h1 class="post-title">{{ page.title }}</h1>
-    <p class="post-meta">{{ page.description }}</p>
+<article class="project-page wrap">
+  <header class="project-header">
+    <h1>{{ page.title }}</h1>
+    {% if page.description %}<p class="muted">{{ page.description }}</p>{% endif %}
   </header>
 
-  <div class="post-content">
+  <section class="project-body">
     {{ content }}
-  </div>
-
-  {% if page.images_path %}
-  <section class="project-gallery">
-    <h2>Gallery</h2>
-    <div class="gallery-grid">
-      {% for file in site.static_files %}
-        {% if file.path contains page.images_path and file.extname == ".png" %}
-        <figure>
-          <img src="{{ file.path | relative_url }}" alt="{{ page.title }} screenshot">
-        </figure>
-        {% endif %}
-      {% endfor %}
-    </div>
   </section>
-  {% endif %}
+
+  <section class="project-gallery">
+    {% include gallery.html project=page %}
+  </section>
+
+  <nav class="project-actions">
+    <a href="{{ '/projects/' | relative_url }}">← Back to projects</a>
+  </nav>
 </article>

@@ -1,42 +1,43 @@
-<!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% if page.title %}{{ page.title }} — {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
 
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="{{ site.title }}">
+  <meta property="og:title" content="{{ page.title | default: site.title }}">
+  <meta property="og:description" content="{{ page.description | default: site.description }}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
 
-    <title>{{ page.title | escape }} - {{ site.title | escape }}</title>
-    <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}">
+  <!-- Basic cache-control for HTML while relying on query-busting for images -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 
-    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-  </head>
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
 
-  <body>
+      <nav class="main-nav">
+        <a href="{{ '/' | relative_url }}">Home</a>
+        <a href="{{ '/projects/' | relative_url }}">Projects</a>
+      </nav>
+    </div>
+  </header>
 
-    <header class="site-header" role="banner">
-      <div class="wrapper">
-        <a class="site-title" rel="author" href="{{ '/' | relative_url }}">{{ site.title | escape }}</a>
-        <nav class="site-nav">
-          <a href="{{ '/' | relative_url }}">IxVenture</a>
-        </nav>
-      </div>
-    </header>
+  <main role="main">
+    {{ content }}
+  </main>
 
-    <main class="page-content" aria-label="Content">
-      <div class="wrapper">
-        {{ content }}
-      </div>
-    </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <small>© {{ 'now' | date: '%Y' }} {{ site.title }} — Built with a minimal Jekyll template.</small>
+    </div>
+  </footer>
 
-    <footer class="site-footer">
-      <div class="wrapper">
-        <p>
-          IxVenture site — powered by Jekyll.<br>
-          Theme is a FLOSS fork of Minima — contributions welcome!
-        </p>
-      </div>
-    </footer>
-
-  </body>
+</body>
 </html>

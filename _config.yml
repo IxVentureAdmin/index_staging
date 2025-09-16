@@ -1,8 +1,33 @@
 title: IxVenture
-description: Building something amazing with AI
+email: hello@ixventure.studio
+description: Minimal project portfolio template for IxVenture Studio.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://ixventure.studio"
 
-# Use empty baseurl by default, but allow GitHub Pages to override
-baseurl: "" 
-url: "" 
-
+# Build settings
+markdown: kramdown
 theme: minima
+permalink: /:categories/:title/
+
+# Collections
+collections:
+  projects:
+    output: true
+    permalink: /projects/:slug/
+
+# Defaults for collection items
+defaults:
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: project
+
+# Exclude any files you do not want Jekyll to process (images are NOT excluded)
+exclude:
+  - node_modules
+  - vendor
+
+# Enable Liquid error mode helpful on debug
+liquid:
+  error_mode: warn
