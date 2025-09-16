@@ -1,16 +1,43 @@
 ---
 layout: default
-title: Home
+title: IxVenture
+description: Building minimal, thoughtful projects that combine design and code.
 ---
 
-<h1>Welcome to IxVenture</h1>
-<p>Building something amazing with AI.</p>
+<section class="hero">
+  <div class="wrap">
+    <h1>{{ site.title }}</h1>
+    <p class="tagline">{{ page.description | default: site.description }}</p>
+    <p class="lead">Selected projects — click a tile to learn more.</p>
+  </div>
+</section>
 
-<h2>Our Projects</h2>
-<ul>
-  {% for project in site.projects %}
-    <li>
-      <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
-    </li>
-  {% endfor %}
-</ul>
+<main class="wrap">
+  <section class="projects-grid">
+    {% assign projects_list = site.projects | sort: "title" %}
+    {% for project in projects_list %}
+      <article class="card">
+        <a href="{{ project.url | relative_url }}" class="card-link">
+          <div class="thumb">
+            {% if project.thumbnail %}
+              <img src="{{ project.thumbnail | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M%S' }}" alt="{{ project.title }}">
+            {% else %}
+              <!-- fallback: first discovered image -->
+              {% capture project_assets_prefix %}/assets/projects/{{ project.slug }}/{% endcapture %}
+              {% for file in site.static_files %}
+                {% if file.path contains project_assets_prefix %}
+                  <img src="{{ file.path | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M%S' }}" alt="{{ project.title }}">
+                  {% break %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          </div>
+          <div class="card-body">
+            <h2>{{ project.title }}</h2>
+            <p class="muted">{{ project.description }}</p>
+          </div>
+        </a>
+      </article>
+    {% endfor %}
+  </section>
+</main>
